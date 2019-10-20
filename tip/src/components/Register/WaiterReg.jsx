@@ -43,7 +43,7 @@ const CustomerReg = (props) => {
             <Innerdiv>
                 
               
-                <h1>New Customer Register</h1>
+                <h1>New Waiter Register</h1>
 
                 <form>
                     <Form.Item>

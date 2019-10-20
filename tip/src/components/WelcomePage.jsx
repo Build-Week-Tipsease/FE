@@ -73,9 +73,9 @@ const WelcomePage = (props) => {
                     </Button>
 
                     <p>Need To Register</p>
-                    <Link to='/new_user'>Register</Link>
-                    
-                    <Route exact path='/new_user' render={props => <CustomerReg {...props}/> }/>
+                    <Link to='/register'>Register</Link>
+                    {/* <Route exact path='/' render={props => <WelcomePage {...props} />} /> */}
+                    {/* <Route exact path='/new_user' render={props => <CustomerReg {...props}/> }/> */}
                 </form>
 
                
