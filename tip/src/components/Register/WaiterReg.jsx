@@ -71,6 +71,7 @@ const WaiterReg = (props) => {
                         placeholder="Email"
                         onBlur={handleBlur}
                     />
+                    </Form.Item>
 
                     <Form.Item  >
                         <Input 
@@ -109,7 +110,7 @@ const WaiterReg = (props) => {
     )
 }
 
-const FormikCustomerReg = withFormik({
+const FormikWaiterReg = withFormik({
     mapPropsToValues({first_name, last_name, username, password}){
         return{
             first_name: first_name || '',
@@ -127,5 +128,5 @@ validationSchema: Yup.object().shape({
     password: Yup.string().required('Please enter a password')
     .min(8, 'Password too short')
 }),
-})(CustomerReg)
-export default FormikCustomerReg;
+})(WaiterReg)
+export default FormikWaiterReg;
