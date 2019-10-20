@@ -1,11 +1,9 @@
 import React from 'react'
-import './WelcomePage.css'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 import { Button, Input, Icon, Typography, Form  } from 'antd';
-import {Route, Link } from 'react-router-dom';
-import CustomerReg from './Register/CustomerReg'
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
 background-color: #363237;
@@ -34,7 +32,7 @@ const Image = styled.img`
 `;
 
 
-const WelcomePage = (props) => {
+const CustomerReg = (props) => {
 
     const {values, handleChange, handleBlur, handleSubmit, touched, errors} = props
 
@@ -45,16 +43,35 @@ const WelcomePage = (props) => {
             <Innerdiv>
                 
               
-                <h1>Welcome to Tipsease</h1>
+                <h1>Enter Fields To Register</h1>
 
                 <form>
-                    <Form.Item   >
+                    <Form.Item>
+                        <Input 
+                         size="large"
+                         name="first_name"
+                         placeholder="First Name"
+                         onBlur={handleBlur}
+                          />
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Input 
+                        size="large"
+                        name="last_name"
+                        placeholder="Last Name"
+                        onBlur={handleBlur}
+                    />
+                    </Form.Item>
+
+                    <Form.Item  >
                         <Input 
                         name='username'
                         type='text'
                         size='large' 
                         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         placeholder='Username' 
+                        onBlur={handleBlur}
                         />
                     </Form.Item>
 
@@ -65,6 +82,7 @@ const WelcomePage = (props) => {
                         size='large'
                         placeholder='Password' 
                         prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        onBlur={handleBlur}
                         />
                     </Form.Item>
                    
@@ -72,21 +90,22 @@ const WelcomePage = (props) => {
                         Login
                     </Button>
 
-                    <p>Need To Register</p>
-                    <Link to='/new_user'>Register</Link>
+                    <p>Login Instead</p>
+                    <Link to='/'>Login</Link>
                     
-                    <Route exact path='/new_user' render={props => <CustomerReg {...props}/> }/>
                 </form>
 
-               
+                
             </Innerdiv>
         </Container>
     )
 }
 
-const FormikWelcomePage = withFormik({
-    mapPropsToValues({username, password}){
+const FormikCustomerReg = withFormik({
+    mapPropsToValues({first_name, last_name, username, password}){
         return{
+            first_name: first_name || '',
+            last_name: last_name || '',
             username: username || '',
             password: password || ''
            
@@ -94,22 +113,11 @@ const FormikWelcomePage = withFormik({
     },
 
 validationSchema: Yup.object().shape({
+    first_name: Yup.string().required(),
+    last_name: Yup.string().required(),
     username: Yup.string().required(),
     password: Yup.string().required('Please enter a password')
     .min(8, 'Password too short')
 }),
-})(WelcomePage)
-export default FormikWelcomePage;
-
-// import { Button } from 'antd';
-
-// ReactDOM.render(
-//   <div>
-//     <Button type="primary">Primary</Button>
-//     <Button>Default</Button>
-//     <Button type="dashed">Dashed</Button>
-//     <Button type="danger">Danger</Button>
-//     <Button type="link">Link</Button>
-//   </div>,
-//   mountNode,
-// );
+})(CustomerReg)
+export default FormikCustomerReg;
