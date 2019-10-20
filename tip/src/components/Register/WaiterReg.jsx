@@ -32,7 +32,7 @@ const Image = styled.img`
 `;
 
 
-const CustomerReg = (props) => {
+const WaiterReg = (props) => {
 
     const {values, handleChange, handleBlur, handleSubmit, touched, errors} = props
 
@@ -63,6 +63,14 @@ const CustomerReg = (props) => {
                         onBlur={handleBlur}
                     />
                     </Form.Item>
+
+                    <Form.Item>
+                        <Input 
+                        size="large"
+                        name="email"
+                        placeholder="Email"
+                        onBlur={handleBlur}
+                    />
 
                     <Form.Item  >
                         <Input 

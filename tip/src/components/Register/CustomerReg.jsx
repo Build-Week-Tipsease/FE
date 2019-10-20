@@ -62,6 +62,13 @@ const CustomerReg = (props) => {
                         placeholder="Last Name"
                         onBlur={handleBlur}
                     />
+                    <Form.Item>
+                        <Input 
+                        size="large"
+                        name="email"
+                        placeholder="Email"
+                        onBlur={handleBlur}
+                    />
                     </Form.Item>
 
                     <Form.Item  >
