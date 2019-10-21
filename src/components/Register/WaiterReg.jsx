@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
@@ -31,10 +31,29 @@ const Image = styled.img`
   border-radius: 10px 0 0 10px;
 `;
 
+const initialWaiterRegFeild = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    username: '',
+    password: '',
+}
 
 const WaiterReg = (props) => {
 
-    const {values, handleChange, handleBlur, handleSubmit, touched, errors} = props
+    const {values, handleBlur, handleSubmit, touched, errors} = props
+
+    const [waiterRegFeild, setWaiterRegFeild] = useState(initialWaiterRegFeild)
+
+    const handleChange = (e) => {
+        setWaiterRegFeild({...waiterRegFeild, [e.target.name]: e.target.value});
+    }
+
+    const handleWaiterReg = (e) => {
+        e.preventDefault();
+        const done = waiterRegFeild
+        debugger
+    }
 
     return(
         <Container className='main-card'>
@@ -45,22 +64,24 @@ const WaiterReg = (props) => {
               
                 <h1>New Waiter Register</h1>
 
-                <form>
+                <form onSubmit={handleWaiterReg}>
                     <Form.Item>
                         <Input 
                          size="large"
-                         name="first_name"
+                         name="firstname"
                          placeholder="First Name"
                          onBlur={handleBlur}
+                         onChange={handleChange}
                           />
                     </Form.Item>
 
                     <Form.Item>
                         <Input 
                         size="large"
-                        name="last_name"
+                        name="lastname"
                         placeholder="Last Name"
                         onBlur={handleBlur}
+                        onChange={handleChange}
                     />
                     </Form.Item>
 
@@ -70,6 +91,7 @@ const WaiterReg = (props) => {
                         name="email"
                         placeholder="Email"
                         onBlur={handleBlur}
+                        onChange={handleChange}
                     />
                     </Form.Item>
 
@@ -81,6 +103,7 @@ const WaiterReg = (props) => {
                         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         placeholder='Username' 
                         onBlur={handleBlur}
+                        onChange={handleChange}
                         />
                     </Form.Item>
 
@@ -92,6 +115,7 @@ const WaiterReg = (props) => {
                         placeholder='Password' 
                         prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         onBlur={handleBlur}
+                        onChange={handleChange}
                         />
                     </Form.Item>
                    
