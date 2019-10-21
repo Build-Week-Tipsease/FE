@@ -1,5 +1,5 @@
 import React from 'react'
-import './WelcomePage.css'
+import './LoginPage.css'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
@@ -34,7 +34,7 @@ const Image = styled.img`
 `;
 
 
-const WelcomePage = (props) => {
+const LoginPage = (props) => {
 
     const {values, handleChange, handleBlur, handleSubmit, touched, errors} = props
 
@@ -69,12 +69,12 @@ const WelcomePage = (props) => {
                     </Form.Item>
                    
                     <Button type="primary" htmlType='submit'>
-                        Login
+                        LoginPage
                     </Button>
 
                     <p>Need To Register</p>
                     <Link to='/register'>Register</Link>
-                    {/* <Route exact path='/' render={props => <WelcomePage {...props} />} /> */}
+                    {/* <Route exact path='/' render={props => <LoginPage {...props} />} /> */}
                     {/* <Route exact path='/new_user' render={props => <CustomerReg {...props}/> }/> */}
                 </form>
 
@@ -84,7 +84,7 @@ const WelcomePage = (props) => {
     )
 }
 
-const FormikWelcomePage = withFormik({
+const FormikLoginPage = withFormik({
     mapPropsToValues({username, password}){
         return{
             username: username || '',
@@ -98,8 +98,8 @@ validationSchema: Yup.object().shape({
     password: Yup.string().required('Please enter a password')
     .min(8, 'Password too short')
 }),
-})(WelcomePage)
-export default FormikWelcomePage;
+})(LoginPage)
+export default FormikLoginPage;
 
 // import { Button } from 'antd';
 
