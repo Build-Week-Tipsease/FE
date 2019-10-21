@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
@@ -31,10 +31,28 @@ const Image = styled.img`
   border-radius: 10px 0 0 10px;
 `;
 
+const initialCustomerRegFeild = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    username: '',
+    password: '',
+}
 
 const CustomerReg = (props) => {
+    const {values, handleBlur, handleSubmit, touched, errors} = props
 
-    const {values, handleChange, handleBlur, handleSubmit, touched, errors} = props
+    const [customerRegFeild, setCustomerRegFeild] = useState(initialCustomerRegFeild)
+
+    const handleChange = (e) => {
+        setCustomerRegFeild({...customerRegFeild, [e.target.name]: e.target.value});
+    }
+
+    const handleCustomerReg = (e) => {
+        e.preventDefault();
+        const done = customerRegFeild
+        debugger
+    }
 
     return(
         <Container className='main-card'>
@@ -45,22 +63,24 @@ const CustomerReg = (props) => {
               
                 <h1>New Customer Register</h1>
 
-                <form>
+                <form onSubmit={handleCustomerReg}>
                     <Form.Item>
                         <Input 
                          size="large"
-                         name="first_name"
+                         name="firstname"
                          placeholder="First Name"
                          onBlur={handleBlur}
+                         onChange={handleChange}
                           />
                     </Form.Item>
 
                     <Form.Item>
                         <Input 
                         size="large"
-                        name="last_name"
+                        name="lastname"
                         placeholder="Last Name"
                         onBlur={handleBlur}
+                        onChange={handleChange}
                     />
                     </Form.Item>
                     
@@ -70,6 +90,7 @@ const CustomerReg = (props) => {
                         name="email"
                         placeholder="Email"
                         onBlur={handleBlur}
+                        onChange={handleChange}
                     />
                     </Form.Item>
 
@@ -81,6 +102,7 @@ const CustomerReg = (props) => {
                         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         placeholder='Username' 
                         onBlur={handleBlur}
+                        onChange={handleChange}
                         />
                     </Form.Item>
 
@@ -92,6 +114,7 @@ const CustomerReg = (props) => {
                         placeholder='Password' 
                         prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         onBlur={handleBlur}
+                        onChange={handleChange}
                         />
                     </Form.Item>
                    
