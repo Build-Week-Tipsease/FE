@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './LoginPage.css'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
@@ -33,10 +33,35 @@ const Image = styled.img`
   border-radius: 10px 0 0 10px;
 `;
 
+const initialLoginFeild = {
+    username: '',
+    password: '',
+}
 
 const LoginPage = (props) => {
+    const {values, handleBlur, handleSubmit, touched, errors} = props
 
-    const {values, handleChange, handleBlur, handleSubmit, touched, errors} = props
+    const [loginFeild, setLoginFeild] = useState(initialLoginFeild)
+
+    const handleChange = (e) => {
+        setLoginFeild({...loginFeild, [e.target.name]: e.target.value});
+    }
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const done = loginFeild
+        debugger
+        // axios.post('', loginFeild)
+        //     .then(res => {
+        //         debugger
+        //         localStorage.setItem('token', res)
+        //         props.history.push('')
+        //     })
+        //     .catch(err => {
+        //         debugger
+        //     })
+        //     setLoginFeild(initialLoginFeild);
+    }
 
     return(
         <Container className='main-card'>
@@ -47,7 +72,7 @@ const LoginPage = (props) => {
               
                 <h1>Welcome to Tipsease</h1>
 
-                <form>
+                <form onSubmit={handleLogin}>
                     <Form.Item   >
                         <Input 
                         name='username'
@@ -55,6 +80,7 @@ const LoginPage = (props) => {
                         size='large' 
                         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         placeholder='Username' 
+                        onChange={handleChange}
                         />
                     </Form.Item>
 
@@ -65,11 +91,12 @@ const LoginPage = (props) => {
                         size='large'
                         placeholder='Password' 
                         prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        onChange={handleChange}
                         />
                     </Form.Item>
                    
                     <Button type="primary" htmlType='submit'>
-                        LoginPage
+                        Login
                     </Button>
 
                     <p>Need To Register</p>
