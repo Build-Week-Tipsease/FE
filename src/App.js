@@ -1,5 +1,4 @@
 import React from 'react';
-import WelcomePage from './components/LoginPage'
 import './App.css';
 import Routes from './components/Rout/Routes';
 
