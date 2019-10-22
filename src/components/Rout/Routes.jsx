@@ -7,6 +7,7 @@ import WaiterReg from '../Register/WaiterReg'
 import Register from '../Register/Register'
 import Footer from '../Footer'
 
+
 const Routes = () => {
 
 return(
@@ -24,6 +25,7 @@ return(
 <Route exact path='/register/waiter_reg' render={props => <WaiterReg {...props}/> }/>
 
 <Route path='/' component={Footer} />
+
     </div>
 )
 }

@@ -33,7 +33,7 @@ const Image = styled.img`
 `;
 
 const NewButton = styled.button`
-background-color: #38af78;
+  background-color: #38af78;
   border-radius: 10px;
   color: #fff;
   border: 2px solid #6fa0d0 !important;
