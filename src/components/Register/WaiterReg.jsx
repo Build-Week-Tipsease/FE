@@ -3,9 +3,11 @@ import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { Button, Input, Icon, Typography, Form  } from 'antd';
+import {Input, Icon, Form  } from 'antd';
 import { Link } from 'react-router-dom';
 import * as actionCreators from '../../state/actionCreators'
+
+
 
 const Container = styled.div`
 background-color: #0c1d09;
@@ -31,7 +33,7 @@ border-radius: 0 10px 10px 0;
 `
 const Image = styled.img`
   height: 63%;
-  border-radius: 10px 14px 0 0;
+  border-radius: 10px 0 0 10px;
 `;
 
 const NewButton = styled.button`
@@ -219,7 +221,10 @@ const WaiterReg = (props) => {
 
                 
             </Innerdiv>
+            
         </Container>
+
+        
     )
 }
 
