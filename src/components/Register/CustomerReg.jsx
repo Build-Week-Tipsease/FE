@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import axios from 'axios'
+import { connect } from 'react-redux';
+import * as actionCreators from '../../state/actionCreators'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
@@ -47,12 +50,13 @@ background-color: #38af78;
   }
   `
 
-const initialCustomerRegFeild = {
+export const initialCustomerRegFeild = {
     firstname: '',
     lastname: '',
     email: '',
     username: '',
     password: '',
+    customerOrService: false,
 }
 
 const CustomerReg = (props) => {
@@ -66,8 +70,7 @@ const CustomerReg = (props) => {
 
     const handleCustomerReg = (e) => {
         e.preventDefault();
-        const done = customerRegFeild
-        debugger
+        props.addNewUser(customerRegFeild);
     }
 
     return(
@@ -138,6 +141,10 @@ const CustomerReg = (props) => {
                         onChange={handleChange}
                         />
                     </Form.Item>
+{/* 
+                    <div>
+                    <Input type='checkbox' name='service' value='' />I am a service provider
+                    </div> */}
                    
                     <NewButton type="primary" htmlType='submit'>
                         Login
@@ -188,4 +195,7 @@ const FormikCustomerReg = withFormik({
     },
     validationSchema: validationSchema
 })(CustomerReg)
-export default FormikCustomerReg;
+export default connect(
+    state => state,
+    actionCreators,
+)(FormikCustomerReg);

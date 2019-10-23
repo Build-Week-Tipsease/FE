@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Button, Input, Icon, Typography, Form  } from 'antd';
 import { Link } from 'react-router-dom';
+import * as actionCreators from '../../state/actionCreators'
 
 const Container = styled.div`
 background-color: #0c1d09;
@@ -55,7 +57,10 @@ const initialWaiterRegFeild = {
     email: '',
     username: '',
     password: '',
-    services: true,
+    customerOrService: true,
+    tagline: '',
+    company: '',
+    yearsAtCompany: 0
 }
 
 const WaiterReg = (props) => {
@@ -70,7 +75,7 @@ const WaiterReg = (props) => {
 
     const handleWaiterReg = (e) => {
         e.preventDefault();
-        const done = waiterRegFeild
+        props.addNewUser(waiterRegFeild);
     }
 
     const showServiceFeilds = () => {
@@ -94,7 +99,7 @@ const WaiterReg = (props) => {
             </Form.Item>
             <Form.Item>
                 <Input 
-                name='timeCurrentJob'
+                name='yearsAtCompany'
                 type='text'  
                 size='large'
                 placeholder='Time at current job' 
@@ -186,7 +191,38 @@ const WaiterReg = (props) => {
                         />
                     </Form.Item>
 
-                    <div>
+                    <Form.Item>
+                        <Input 
+                        name='tagline'
+                        type='text'  
+                        size='large'
+                        placeholder='Tagline' 
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Input 
+                        name='timeCurrentJob'
+                        type='text'  
+                        size='large'
+                        placeholder='Time at current job' 
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Input 
+                        name='company'
+                        type='text'  
+                        size='large'
+                        placeholder='Company' 
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        />
+                    </Form.Item>
+
+                    {/* <div>
                         
                         <Input type='checkbox' name='service' value='' onClick={showServiceFeilds} />I am a service provider
                         
@@ -194,7 +230,7 @@ const WaiterReg = (props) => {
                             {dialog}
                         </div>
                         
-                    </div>
+                    </div> */}
                    
                     <NewButton type="primary" htmlType='submit'>
                         Login
@@ -246,4 +282,7 @@ const FormikWaiterReg = withFormik({
 
 validationSchema: validationSchema
 })(WaiterReg)
-export default FormikWaiterReg;
+export default connect(
+    state => state,
+    actionCreators,
+)(FormikWaiterReg);
