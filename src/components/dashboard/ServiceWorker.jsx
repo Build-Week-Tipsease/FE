@@ -5,7 +5,7 @@ import { withFormik } from "formik";
 import { Button, Input, Icon, Typography, Form } from "antd";
 import { Link } from "react-router-dom";
 import * as Yup from 'yup';
-
+import axiosWithAuth from '../axios';
 
 const Cont = styled.div`
   background-color: #0c1d09;
@@ -51,18 +51,27 @@ const data = [
       "https://www.cargocrew.com.au/media/catalog/product/cache/1/image/580x770/040ec09b1e35df139433887a97daa66f/c/a/cargocrew-uniform-apron-tom-bib-black-womens-5.jpg"
   }
 ];
-
+const input=`https://tipsease-msm.herokuapp.com`
 const ServiceWorker=(props)=> {
   const {values, handleBlur, touched, errors} = props  
     
   const [service, setService] = useState([]);
-  console.log(service);
+  
   useEffect(() => {
-    setService(data);
-  });
+    axiosWithAuth().get(`${input}/api/serviceworker/`)
+        .then(res => {
+        console.log(`response`, res.data)
+    })
+    .catch(error => {
+        console.log(`no tips`, error)
+        // will change to axios data
+        setService(data);
+    })
+    
+  },[]);
   return (
     <Cont>
-      <p>Hello</p>
+      
       {service.map((i, index) => {
         return (
           <Card key={index}>
@@ -73,7 +82,17 @@ const ServiceWorker=(props)=> {
             <p>Tagline~ {i.tagline}</p>
             <p>Tips~ ${i.balance}</p>
 
-            <form onSubmit="submit">
+            
+          </Card>
+        );
+      })}
+    </Cont>
+  );
+}
+export default ServiceWorker;
+
+
+{/* <form onSubmit="submit">
               <Form.Item
                 help={
                   touched.tip && errors.tip
@@ -88,25 +107,4 @@ const ServiceWorker=(props)=> {
                 <NumberFormat thousandSeparator={true} prefix={'$'} />
                 <NewButton type='submit'>Send</NewButton>
               </Form.Item>
-            </form>
-          </Card>
-        );
-      })}
-    </Cont>
-  );
-}
-
-const validationSchema = Yup.object().shape({
-    tip: Yup.string()
-    .required('enter tip')
-})
-
-const FormikServiceWorker = withFormik({
-    mapPropsToValues({tip}){
-        return{
-            tip: tip || '',
-        }
-    },
-    validationSchema:validationSchema
-})(ServiceWorker)
-export default FormikServiceWorker;
+            </form> */}

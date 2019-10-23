@@ -147,10 +147,10 @@ const CustomerReg = (props) => {
         .min(2, "Name is too short"),
     
         email: Yup.string()
+        .email("Email is not valid")
         .required('Please provide a email'),
     
         username: Yup.string()
-        .email("Email is not valid")
         .required("Please provide an username"),
     
         password: Yup.string().required('Please enter a password')
