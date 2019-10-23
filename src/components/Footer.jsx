@@ -33,7 +33,7 @@ const Foot2 = styled.div`
     justify-content: space-between;
     padding: 0 5px;
     font-size: 10px;
-    margin: -10px 0 0 0;
+    margin: -10px 14px 0 0;
 `
 const Footer = () => {
 
