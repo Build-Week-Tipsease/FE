@@ -3,9 +3,11 @@ import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { Button, Input, Icon, Typography, Form  } from 'antd';
+import {Input, Icon, Form  } from 'antd';
 import { Link } from 'react-router-dom';
 import * as actionCreators from '../../state/actionCreators'
+
+
 
 const Container = styled.div`
 background-color: #0c1d09;
@@ -51,6 +53,15 @@ background-color: #38af78;
     color: #6fa0d0;
   }
 `;
+const H1 = styled.h1`
+    width: 110%;
+`
+const Field1 = styled(Form.Item)`
+margin-left: -17px
+`
+const Field2 = styled(Form.Item)`
+margin-left: -17px
+`
 
 export const initialWaiterRegFeild = {
     firstname: '',
@@ -87,7 +98,6 @@ const WaiterReg = (props) => {
 
             <Innerdiv>
                 
-              
                 <h1>Register as a Worker</h1>
 
                 <form onSubmit={handleWaiterReg}>
@@ -125,7 +135,7 @@ const WaiterReg = (props) => {
                     />
                     </Form.Item>
 
-                    <Form.Item help={touched.username && errors.username ? errors.username : ""}
+                    <Field1 help={touched.username && errors.username ? errors.username : ""}
 
                     validateStatus={
                     touched.username && errors.username ? "error" : undefined} >
@@ -138,9 +148,9 @@ const WaiterReg = (props) => {
                         onBlur={handleBlur}
                         onChange={handleChange}
                         />
-                    </Form.Item>
+                    </Field1>
 
-                    <Form.Item help={touched.password && errors.password ? errors.password : ""}
+                    <Field2 help={touched.password && errors.password ? errors.password : ""}
                     validateStatus={
                     touched.password && errors.password ? "error" : undefined}>
                         <Input 
@@ -153,7 +163,7 @@ const WaiterReg = (props) => {
                         onChange={handleChange}
 
                         />
-                    </Form.Item>
+                    </Field2>
 
                     <Form.Item>
                         <Input 
@@ -210,7 +220,10 @@ const WaiterReg = (props) => {
 
                 
             </Innerdiv>
+            
         </Container>
+
+        
     )
 }
 

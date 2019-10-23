@@ -7,7 +7,7 @@ import CustomerReg from '../Register/CustomerReg'
 import WaiterReg from '../Register/WaiterReg'
 import Register from '../Register/Register'
 import Footer from '../Footer'
-import Dashboard from '../Dashboard/index'
+import Dashboard from '../dashboard/index'
 
 
 const Routes = (props) => {

@@ -49,6 +49,12 @@ background-color: #38af78;
     color: #6fa0d0;
   }
   `
+const Field3 = styled(Form.Item)`
+margin-left: -17px
+`
+const Field4 = styled(Form.Item)`
+margin-left: -17px
+`
 
 export const initialCustomerRegFeild = {
     firstname: '',
@@ -118,7 +124,7 @@ const CustomerReg = (props) => {
                     />
                     </Form.Item>
 
-                    <Form.Item help={touched.username && errors.username ? errors.username : ""} help={touched.username && errors.username ? errors.username : ""}>
+                    <Field3 help={touched.username && errors.username ? errors.username : ""} help={touched.username && errors.username ? errors.username : ""}>
                         <Input 
                         name='username'
                         type='text'
@@ -128,9 +134,9 @@ const CustomerReg = (props) => {
                         onBlur={handleBlur}
                         onChange={handleChange}
                         />
-                    </Form.Item>
+                    </Field3>
 
-                    <Form.Item help={touched.password && errors.password ? errors.password : ""}
+                    <Field4 help={touched.password && errors.password ? errors.password : ""}
                     validateStatus={
                     touched.password && errors.password ? "error" : undefined}>
                         <Input 
@@ -142,7 +148,7 @@ const CustomerReg = (props) => {
                         onBlur={handleBlur}
                         onChange={handleChange}
                         />
-                    </Form.Item>
+                    </Field4>
 {/* 
                     <div>
                     <Input type='checkbox' name='service' value='' />I am a service provider
