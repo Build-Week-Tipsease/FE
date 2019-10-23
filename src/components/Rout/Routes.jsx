@@ -8,6 +8,7 @@ import Register from '../Register/Register'
 import Footer from '../Footer'
 import Dashboard from '../Dashboard/index'
 
+
 const Routes = () => {
 
 return(
