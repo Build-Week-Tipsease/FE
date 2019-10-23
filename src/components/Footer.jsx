@@ -40,7 +40,7 @@ const Footer = () => {
 
     return (
         
-        <Foot>
+        <Foot className='footer'>
             <Foot1>
             <P1>Contact Us</P1>
             <P2>Support</P2>    
