@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './LoginPage.css'
+import axios from 'axios';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
@@ -47,11 +48,38 @@ background-color: #38af78;
     background-color: #fff;
     color: #6fa0d0;
   }
-  `
+`;
+
+const initialLoginFeild = {
+    username: '',
+    password: '',
+}
 
 const LoginPage = (props) => {
+    
+    const {values, handleBlur, handleSubmit, touched, errors} = props
 
-    const {values, handleChange, handleBlur, handleSubmit, touched, errors} = props
+    const [loginFeild, setLoginFeild] = useState(initialLoginFeild)
+
+    const handleChange = (e) => {
+        setLoginFeild({...loginFeild, [e.target.name]: e.target.value});
+    }
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const done = loginFeild
+        debugger
+        axios.post('', loginFeild)
+            .then(res => {
+                debugger
+                localStorage.setItem('token', res)
+                props.history.push('')
+            })
+            .catch(err => {
+                debugger
+            })
+            setLoginFeild(initialLoginFeild);
+    }
 
     return(
         <Container className='main-card'>
@@ -62,14 +90,15 @@ const LoginPage = (props) => {
               
                 <h1>Welcome to Tipsease</h1>
 
-                <form>
+                <form onSubmit={handleLogin}>
                     <Form.Item help={touched.username && errors.username ? errors.username : ""} help={touched.username && errors.username ? errors.username : ""}>
                         <Input 
                         name='username'
                         type='text'
                         size='large' 
                         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                        placeholder='Username' 
+
+                        placeholder='Username'
                         onBlur={handleBlur}
                         onChange={handleChange}
                         />
@@ -90,13 +119,14 @@ const LoginPage = (props) => {
                     </Form.Item>
                    
                     <NewButton type="primary" htmlType='submit'>
-                        LoginPage
+                        Login
                     </NewButton>
 
                     <p>Need To Register</p>
                     <Link to='/register'>
                         <NewButton>Register</NewButton>
-                        </Link>
+
+                    </Link>
                     {/* <Route exact path='/' render={props => <LoginPage {...props} />} /> */}
                     {/* <Route exact path='/new_user' render={props => <CustomerReg {...props}/> }/> */}
                 </form>
@@ -106,7 +136,6 @@ const LoginPage = (props) => {
         </Container>
     )
 }
-
 
 const validationSchema = Yup.object().shape({
     username: Yup.string()
@@ -127,5 +156,5 @@ const FormikLoginPage = withFormik({
 validationSchema:validationSchema
 
 })(LoginPage)
-export default FormikLoginPage;
 
+export default FormikLoginPage;

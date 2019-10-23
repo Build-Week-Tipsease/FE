@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Button, Input, Icon, Typography, Form  } from 'antd';
 import { Link } from 'react-router-dom';
+import * as actionCreators from '../../state/actionCreators'
 
 const Container = styled.div`
 background-color: #0c1d09;
@@ -33,7 +35,8 @@ const Image = styled.img`
 `;
 
 const NewButton = styled.button`
-  background-color: #38af78;
+background-color: #38af78;
+
   border-radius: 10px;
   color: #fff;
   border: 2px solid #6fa0d0 !important;
@@ -47,12 +50,77 @@ const NewButton = styled.button`
     background-color: #fff;
     color: #6fa0d0;
   }
-`
+`;
+
+const initialWaiterRegFeild = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    username: '',
+    password: '',
+    customerOrService: true,
+    tagline: '',
+    company: '',
+    yearsAtCompany: 0
+}
 
 
 const WaiterReg = (props) => {
 
-    const {values, handleChange, handleBlur, handleSubmit, touched, errors} = props
+    const {values, handleBlur, handleSubmit, touched, errors} = props
+
+    const [waiterRegFeild, setWaiterRegFeild] = useState(initialWaiterRegFeild)
+
+    const handleChange = (e) => {
+        setWaiterRegFeild({...waiterRegFeild, [e.target.name]: e.target.value});
+    }
+
+    const handleWaiterReg = (e) => {
+        e.preventDefault();
+        props.addNewUser(waiterRegFeild);
+    }
+
+    const showServiceFeilds = () => {
+        setWaiterRegFeild({
+            ...waiterRegFeild,
+            services: !waiterRegFeild.services
+        })
+    }
+
+    let dialog = (
+        <div>
+            <Form.Item>
+                <Input 
+                name='tagline'
+                type='text'  
+                size='large'
+                placeholder='Tagline' 
+                onBlur={handleBlur}
+                onChange={handleChange}
+                />
+            </Form.Item>
+            <Form.Item>
+                <Input 
+                name='yearsAtCompany'
+                type='text'  
+                size='large'
+                placeholder='Time at current job' 
+                onBlur={handleBlur}
+                onChange={handleChange}
+                />
+            </Form.Item>
+            <Form.Item>
+                <Input 
+                name='company'
+                type='text'  
+                size='large'
+                placeholder='Company' 
+                onBlur={handleBlur}
+                onChange={handleChange}
+                />
+            </Form.Item>
+        </div>
+    )
 
     return(
         <Container className='main-card'>
@@ -63,12 +131,13 @@ const WaiterReg = (props) => {
               
                 <h1>New Waiter Register</h1>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleWaiterReg}>
+
                     <Form.Item help={touched.first_name && errors.first_name ? errors.first_name : ""}
                     validateStatus={touched.first_name && errors.first_name ? "error" : undefined}>
                         <Input 
                          size="large"
-                         name="first_name"
+                         name="firstname"
                          placeholder="First Name"
                          onBlur={handleBlur}
                          onChange={handleChange}
@@ -79,7 +148,7 @@ const WaiterReg = (props) => {
                     validateStatus={touched.last_name && errors.last_name ? "error" : undefined}>
                         <Input 
                         size="large"
-                        name="last_name"
+                        name="lastname"
                         placeholder="Last Name"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -97,7 +166,8 @@ const WaiterReg = (props) => {
                     />
                     </Form.Item>
 
-                    <Form.Item  help={touched.username && errors.username ? errors.username : ""}
+                    <Form.Item help={touched.username && errors.username ? errors.username : ""}
+
                     validateStatus={
                     touched.username && errors.username ? "error" : undefined} >
                         <Input 
@@ -122,11 +192,55 @@ const WaiterReg = (props) => {
                         prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         onBlur={handleBlur}
                         onChange={handleChange}
+
                         />
                     </Form.Item>
+
+                    <Form.Item>
+                        <Input 
+                        name='tagline'
+                        type='text'  
+                        size='large'
+                        placeholder='Tagline' 
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Input 
+                        name='timeCurrentJob'
+                        type='text'  
+                        size='large'
+                        placeholder='Time at current job' 
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Input 
+                        name='company'
+                        type='text'  
+                        size='large'
+                        placeholder='Company' 
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        />
+                    </Form.Item>
+
+                    {/* <div>
+                        
+                        <Input type='checkbox' name='service' value='' onClick={showServiceFeilds} />I am a service provider
+                        
+                        <div hidden={waiterRegFeild.services}>
+                            {dialog}
+                        </div>
+                        
+                    </div> */}
                    
                     <NewButton type="primary" htmlType='submit'>
-                        Submit
+                        Login
+
                     </NewButton>
 
                     <p>Login Instead</p>
@@ -143,7 +257,6 @@ const WaiterReg = (props) => {
 }
 
 
-
 const validationSchema = Yup.object().shape({
     first_name: Yup.string()
     .required("Please provide your first name")
@@ -154,10 +267,12 @@ const validationSchema = Yup.object().shape({
     .min(2, "Name is too short"),
 
     email: Yup.string()
-    .email("Email is not valid")
+
     .required('Please provide a email'),
 
     username: Yup.string()
+    .email("Email is not valid")
+
     .required("Please provide an username"),
 
     password: Yup.string().required('Please enter a password')
@@ -177,4 +292,7 @@ const FormikWaiterReg = withFormik({
 
 validationSchema: validationSchema
 })(WaiterReg)
-export default FormikWaiterReg;
+export default connect(
+    state => state,
+    actionCreators,
+)(FormikWaiterReg);

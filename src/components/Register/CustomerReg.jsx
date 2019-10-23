@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
+import { connect } from 'react-redux';
+import * as actionCreators from '../../state/actionCreators'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
@@ -47,9 +50,28 @@ background-color: #38af78;
   }
   `
 
-const CustomerReg = (props) => {
+export const initialCustomerRegFeild = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    username: '',
+    password: '',
+    customerOrService: false,
+}
 
-    const {values, handleChange, handleBlur, handleSubmit, touched, errors} = props
+const CustomerReg = (props) => {
+    const {values, handleBlur, handleSubmit, touched, errors} = props
+
+    const [customerRegFeild, setCustomerRegFeild] = useState(initialCustomerRegFeild)
+
+    const handleChange = (e) => {
+        setCustomerRegFeild({...customerRegFeild, [e.target.name]: e.target.value});
+    }
+
+    const handleCustomerReg = (e) => {
+        e.preventDefault();
+        props.addNewUser(customerRegFeild);
+    }
 
     return(
         <Container className='main-card'>
@@ -60,12 +82,13 @@ const CustomerReg = (props) => {
               
                 <h1>New Customer Register</h1>
 
-                <form>
+                <form onSubmit={handleCustomerReg}>
+
                     <Form.Item help={touched.first_name && errors.first_name ? errors.first_name : ""}
                     validateStatus={touched.first_name && errors.first_name ? "error" : undefined}>
                         <Input 
                          size="large"
-                         name="first_name"
+                         name="firstname"
                          placeholder="First Name"
                          onBlur={handleBlur}
                          onChange={handleChange}
@@ -76,7 +99,7 @@ const CustomerReg = (props) => {
                     validateStatus={touched.last_name && errors.last_name ? "error" : undefined}>
                         <Input 
                         size="large"
-                        name="last_name"
+                        name="lastname"
                         placeholder="Last Name"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -119,6 +142,10 @@ const CustomerReg = (props) => {
                         onChange={handleChange}
                         />
                     </Form.Item>
+{/* 
+                    <div>
+                    <Input type='checkbox' name='service' value='' />I am a service provider
+                    </div> */}
                    
                     <NewButton type="primary" htmlType='submit'>
                         Login
@@ -136,38 +163,41 @@ const CustomerReg = (props) => {
     )
 }
 
+const validationSchema = Yup.object().shape({
+    first_name: Yup.string()
+    .required("Please provide your first name")
+    .min(2, "Name is too short"),
 
-    const validationSchema = Yup.object().shape({
-        first_name: Yup.string()
-        .required("Please provide your first name")
-        .min(2, "Name is too short"),
-    
-        last_name: Yup.string()
-        .required("Please provide your last name")
-        .min(2, "Name is too short"),
-    
-        email: Yup.string()
-        .email("Email is not valid")
-        .required('Please provide a email'),
-    
-        username: Yup.string()
-        .required("Please provide an username"),
-    
-        password: Yup.string().required('Please enter a password')
-        .min(8, 'Password too short')
-    });
+    last_name: Yup.string()
+    .required("Please provide your last name")
+    .min(2, "Name is too short"),
 
-    const FormikCustomerReg = withFormik({
-        mapPropsToValues({first_name, last_name, email, username, password}){
-            return{
-                first_name: first_name || '',
-                last_name: last_name || '',
-                email: email || '',
-                username: username || '',
-                password: password || ''
-               
-            }
-        },
-        validationSchema: validationSchema
+    email: Yup.string()
+    .required('Please provide a email'),
+
+    username: Yup.string()
+    .email("Email is not valid")
+    .required("Please provide an username"),
+
+    password: Yup.string().required('Please enter a password')
+    .min(8, 'Password too short')
+});
+
+const FormikCustomerReg = withFormik({
+    mapPropsToValues({first_name, last_name, email, username, password}){
+        return{
+            first_name: first_name || '',
+            last_name: last_name || '',
+            email: email || '',
+            username: username || '',
+            password: password || ''
+           
+        }
+    },
+    validationSchema: validationSchema
+
 })(CustomerReg)
-export default FormikCustomerReg;
+export default connect(
+    state => state,
+    actionCreators,
+)(FormikCustomerReg);
