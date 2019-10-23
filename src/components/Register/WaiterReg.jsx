@@ -51,7 +51,7 @@ background-color: #38af78;
   }
 `;
 
-const initialWaiterRegFeild = {
+export const initialWaiterRegFeild = {
     firstname: '',
     lastname: '',
     email: '',
@@ -75,50 +75,9 @@ const WaiterReg = (props) => {
 
     const handleWaiterReg = (e) => {
         e.preventDefault();
-        props.addNewUser(waiterRegFeild);
+        props.addNewWaiter(waiterRegFeild);
+        props.history.push('/welcome');
     }
-
-    const showServiceFeilds = () => {
-        setWaiterRegFeild({
-            ...waiterRegFeild,
-            services: !waiterRegFeild.services
-        })
-    }
-
-    let dialog = (
-        <div>
-            <Form.Item>
-                <Input 
-                name='tagline'
-                type='text'  
-                size='large'
-                placeholder='Tagline' 
-                onBlur={handleBlur}
-                onChange={handleChange}
-                />
-            </Form.Item>
-            <Form.Item>
-                <Input 
-                name='yearsAtCompany'
-                type='text'  
-                size='large'
-                placeholder='Time at current job' 
-                onBlur={handleBlur}
-                onChange={handleChange}
-                />
-            </Form.Item>
-            <Form.Item>
-                <Input 
-                name='company'
-                type='text'  
-                size='large'
-                placeholder='Company' 
-                onBlur={handleBlur}
-                onChange={handleChange}
-                />
-            </Form.Item>
-        </div>
-    )
 
     return(
         <Container className='main-card'>
@@ -203,7 +162,7 @@ const WaiterReg = (props) => {
                     </Form.Item>
                     <Form.Item>
                         <Input 
-                        name='timeCurrentJob'
+                        name='yearsAtCompany'
                         type='text'  
                         size='large'
                         placeholder='Time at current job' 
@@ -233,12 +192,12 @@ const WaiterReg = (props) => {
                     </div> */}
                    
                     <NewButton type="primary" htmlType='submit'>
-                        Login
+                        Sign Up
                     </NewButton>
 
-                    <p>Login Instead</p>
+                    <p>Already have an account? Login Instead</p>
                     <Link to='/'>
-                        <NewButton>Login</NewButton>
+                        <NewButton>Login here</NewButton>
                         </Link>
                     
                 </form>

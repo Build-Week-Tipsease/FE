@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { Button, Input, Icon, Typography, Form  } from 'antd';
 import {Route, Link } from 'react-router-dom';
 import CustomerReg from './Register/CustomerReg'
+import { baseUserApi } from '../state/actionCreators'
 
 const Container = styled.div`
 background-color: #0c1d09;
@@ -67,15 +68,15 @@ const LoginPage = (props) => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        const done = loginFeild
-        debugger
-        axios.post('', loginFeild)
+        axios.post(`${baseUserApi}/api/customers/login`, loginFeild)
             .then(res => {
+                console.log(res)
                 debugger
                 localStorage.setItem('token', res)
-                props.history.push('')
+                props.history.push('/home')
             })
             .catch(err => {
+                alert(err.message);
                 debugger
             })
             setLoginFeild(initialLoginFeild);
@@ -121,9 +122,9 @@ const LoginPage = (props) => {
                         Login
                     </NewButton>
 
-                    <p>Need To Register</p>
+                    <p>Need To Register?</p>
                     <Link to='/register'>
-                        <NewButton>Register</NewButton>
+                        <NewButton>Register here</NewButton>
                     </Link>
                     {/* <Route exact path='/' render={props => <LoginPage {...props} />} /> */}
                     {/* <Route exact path='/new_user' render={props => <CustomerReg {...props}/> }/> */}
