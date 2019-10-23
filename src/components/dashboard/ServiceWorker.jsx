@@ -51,7 +51,7 @@ const input=`https://tipsease-msm.herokuapp.com`
 const ServiceWorker=(props)=> {
   const {values, handleBlur, touched, errors} = props  
     
-  const [service, setService] = useState([]);
+  const [service, setService] = useState(data);
   
   useEffect(() => {
     axiosWithAuth().get(`${input}/api/serviceworker/`)

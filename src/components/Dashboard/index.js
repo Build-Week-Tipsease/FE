@@ -1,11 +1,14 @@
 import React from 'react'
 import CustomerDashboard from './Customer';
+import WorkerDashboard from './ServiceWorker';
 
-const Dashboard = () => {
-
+function Dashboard () {
+  const role=localStorage.getItem('role');
+  console.log(role)
   return(
     <div>
-      <CustomerDashboard />
+      {role==='customer' && <CustomerDashboard />}
+      {role==='worker' && <WorkerDashboard />}
     </div>
   );
 }

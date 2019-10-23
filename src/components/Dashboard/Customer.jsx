@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axiosWithAuth from '../axios';
+import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import { users } from '../static/static';
+import icon from '../../components/images/tipsease icon.png';
 
 const apiBase = `https://tipsease-msm.herokuapp.com`;
+const token = localStorage.getItem('token');
+
 
 const Customer = () => {
   const [ workers, setWorkers ] = useState(users);
@@ -32,11 +36,23 @@ const Customer = () => {
     if(searchResults.length <= 0)setSearchResult(searchResults.concat(worker));
   }
 
-  useEffect(() => {
-    axiosWithAuth().get(`${apiBase}/api/serviceworker`).then(res => {
+  const getWorkers = () => {
+    console.log(token);
+    axios.get(`${apiBase}/api/customers`, 
+    {
+      "Authorization": token,
+    })
+    .then(res => {
+      console.log(res.data)
       setWorkers(res.data)
     }).catch(err => console.error(err));
+  }
+  //console.log(getWorkers())
+  useEffect(() => {
+   
+    getWorkers();
   }, [])
+
 
   return(
     <div className='dashboard'>
@@ -49,15 +65,19 @@ const Customer = () => {
         workers.length > 0 && searchResults.length <= 0 &&
         !searched &&
         workers.map(worker => (
+          
           <div className='worker-card'>
-            <h2 className='card-text'>Name: {worker.FirstName} {worker.LastName}</h2>
-            <h3 className='catch-phrase'>Tagline: {worker.tagline}</h3>
-            <h3 className='card-text'>Company: {worker.company}</h3>
-            <h3 className='card-text'>Years at Company: {worker.YearsAtCompany}</h3>
-            {tipping && (<input placeholder='Amount in $'  ref={tipRef} className='tip-box' ></input>)}
-            <button className='tip-button' onClick={() => tip(worker)}>
-              Tip
-            </button>
+            <img src={icon} className='ph-image' alt='ph'/>
+            <div className='other-info'>
+              <h2 className='card-text'>Name: {worker.FirstName} {worker.LastName}</h2>
+              <h3 className='catch-phrase'>Tagline: {worker.tagline}</h3>
+              <h3 className='card-text'>Company: {worker.company}</h3>
+              <h3 className='card-text'>Years at Company: {worker.YearsAtCompany}</h3>
+              {tipping && (<input placeholder='Amount in $'  ref={tipRef} className='tip-box' ></input>)}
+              <button className='tip-button' onClick={() => tip(worker)}>
+                Tip
+              </button>
+            </div>
           </div>
         ))
       }
@@ -65,18 +85,17 @@ const Customer = () => {
         searchResults.length > 0 &&
         searchResults.map(worker => (
           <div className='worker-card'>
-            <h2 className='card-text'>Name: {worker.FirstName} {worker.LastName}</h2>
-            <h3 className='catch-phrase'>Tagline: {worker.tagline}</h3>
-            <h3 className='card-text'>Company: {worker.company}</h3>
-            <h3 className='card-text'>Years at Company: {worker.YearsAtCompany}</h3>
-            {tipping && (<input placeholder='Amount in $' className='tip-box' ref={tipRef}></input>)}
-            <button 
-            className='tip-button' 
-            onClick={() => {
-              tip(worker)
-            }}>
-              Tip
-            </button>
+            <img src={icon}  className='ph-image' alt='ph'/>
+            <div className='other-info'>
+              <h2 className='card-text'>Name: {worker.FirstName} {worker.LastName}</h2>
+              <h3 className='catch-phrase'>Tagline: {worker.tagline}</h3>
+              <h3 className='card-text'>Company: {worker.company}</h3>
+              <h3 className='card-text'>Years at Company: {worker.YearsAtCompany}</h3>
+              {tipping && (<input placeholder='Amount in $'  ref={tipRef} className='tip-box' ></input>)}
+              <button className='tip-button' onClick={() => tip(worker)}>
+                Tip
+              </button>
+            </div>
           </div>
         ))
       }

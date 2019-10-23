@@ -3,7 +3,7 @@ import { initialCustomerRegFeild } from '../components/Register/CustomerReg'
 import { initialWaiterRegFeild } from '../components/Register/WaiterReg'
 
 export function customerReducer(user = initialCustomerRegFeild, action) {
-    debugger
+    
     switch (action.type) {
         case types.ADD_NEW_USER:
             return action.payload;
@@ -15,7 +15,7 @@ export function customerReducer(user = initialCustomerRegFeild, action) {
 }
 
 export function waiterReducer(user = initialWaiterRegFeild, action) {
-    debugger
+    
     switch (action.type) {
         case types.ADD_NEW_USER:
             return action.payload;

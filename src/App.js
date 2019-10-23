@@ -4,7 +4,7 @@ import Routes from './components/Rout/Routes';
 
 
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       

@@ -98,8 +98,7 @@ const WaiterReg = (props) => {
 
             <Innerdiv>
                 
-              
-                <H1>New Waiter Register</H1>
+                <h1>Register as a Worker</h1>
 
                 <form onSubmit={handleWaiterReg}>
 
@@ -212,9 +211,9 @@ const WaiterReg = (props) => {
                         Sign Up
                     </NewButton>
 
-                    <p>Already have an account? Login Instead</p>
+                    <p>Already have an account? Login</p>
                     <Link to='/'>
-                        <NewButton>Login here</NewButton>
+                        <NewButton>Login</NewButton>
                         </Link>
                     
                 </form>
