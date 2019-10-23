@@ -42,7 +42,7 @@ const Customer = () => {
     <div className='dashboard'>
       <form className='search-form' onSubmit={submit}>
         <input className='search-input' ref={username}></input>
-        <button className='search-button'>Find</button>
+        <button className='search-button'>Find Worker</button>
       </form>
       <div className='worker-cards'>
       {
