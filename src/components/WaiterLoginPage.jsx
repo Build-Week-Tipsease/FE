@@ -67,18 +67,16 @@ const WaiterLoginPage = (props) => {
     }
 
     const handleLogin = (e) => {
-        debugger
         e.preventDefault();
         axios.post(`${baseUserApi}/api/serviceworker/login`, loginFeild)
             .then(res => {
                 console.log(res.token)
-                debugger
                 localStorage.setItem('token', res.data.token)
-                props.history.push('/home')
+                localStorage.setItem('role', 'worker')
+                props.history.push('/dashboard')
             })
             .catch(err => {
                 alert(err.message);
-                debugger
             })
             setLoginFeild(initialLoginFeild);
     }

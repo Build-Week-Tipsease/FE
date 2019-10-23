@@ -10,14 +10,14 @@ import Footer from '../Footer'
 import Dashboard from '../Dashboard/index'
 
 
-const Routes = () => {
+const Routes = (props) => {
 
 return(
     <div>
 <Route exact path='/home' render={() => <Redirect to='/' />} />
 <Route exact path='/' render={() => <Redirect to ='/register'/>} />
 
-<Header />
+<Header/>
 <Route exact path='/customer_login' component={CustomerLoginPage} />
 <Route exact path='/waiter_login' component={WaiterLoginPage} />
 

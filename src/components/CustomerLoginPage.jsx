@@ -67,18 +67,16 @@ const CustomerLoginPage = (props) => {
     }
 
     const handleLogin = (e) => {
-        debugger
         e.preventDefault();
         axios.post(`${baseUserApi}/api/customers/login`, loginFeild)
             .then(res => {
-                console.log(res.token)
-                debugger
                 localStorage.setItem('token', res.data.token)
-                props.history.push('/home')
+                localStorage.setItem('role', 'customer')
+                props.history.push('/dashboard')
             })
             .catch(err => {
                 alert(err.message);
-                debugger
+               
             })
             setLoginFeild(initialLoginFeild);
     }
@@ -124,9 +122,9 @@ const CustomerLoginPage = (props) => {
                         Login
                     </NewButton>
 
-                    <p>Need To Register?</p>
+                    <p>Not yet a member?</p>
                     <Link to='/register'>
-                        <NewButton>Register here</NewButton>
+                        <NewButton>Register</NewButton>
                     </Link>
                     {/* <Route exact path='/' render={props => <CustomerLoginPage {...props} />} /> */}
                     {/* <Route exact path='/new_user' render={props => <CustomerReg {...props}/> }/> */}
