@@ -97,6 +97,7 @@ const LoginPage = (props) => {
                         type='text'
                         size='large' 
                         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+
                         placeholder='Username'
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -124,6 +125,7 @@ const LoginPage = (props) => {
                     <p>Need To Register</p>
                     <Link to='/register'>
                         <NewButton>Register</NewButton>
+
                     </Link>
                     {/* <Route exact path='/' render={props => <LoginPage {...props} />} /> */}
                     {/* <Route exact path='/new_user' render={props => <CustomerReg {...props}/> }/> */}
@@ -154,4 +156,5 @@ const FormikLoginPage = withFormik({
 validationSchema:validationSchema
 
 })(LoginPage)
+
 export default FormikLoginPage;

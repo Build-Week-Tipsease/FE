@@ -36,6 +36,7 @@ const Image = styled.img`
 
 const NewButton = styled.button`
 background-color: #38af78;
+
   border-radius: 10px;
   color: #fff;
   border: 2px solid #6fa0d0 !important;
@@ -62,6 +63,7 @@ const initialWaiterRegFeild = {
     company: '',
     yearsAtCompany: 0
 }
+
 
 const WaiterReg = (props) => {
 
@@ -130,6 +132,7 @@ const WaiterReg = (props) => {
                 <h1>New Waiter Register</h1>
 
                 <form onSubmit={handleWaiterReg}>
+
                     <Form.Item help={touched.first_name && errors.first_name ? errors.first_name : ""}
                     validateStatus={touched.first_name && errors.first_name ? "error" : undefined}>
                         <Input 
@@ -164,6 +167,7 @@ const WaiterReg = (props) => {
                     </Form.Item>
 
                     <Form.Item help={touched.username && errors.username ? errors.username : ""}
+
                     validateStatus={
                     touched.username && errors.username ? "error" : undefined} >
                         <Input 
@@ -188,6 +192,7 @@ const WaiterReg = (props) => {
                         prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         onBlur={handleBlur}
                         onChange={handleChange}
+
                         />
                     </Form.Item>
 
@@ -199,6 +204,7 @@ const WaiterReg = (props) => {
                         placeholder='Tagline' 
                         onBlur={handleBlur}
                         onChange={handleChange}
+
                         />
                     </Form.Item>
                     <Form.Item>
@@ -234,6 +240,7 @@ const WaiterReg = (props) => {
                    
                     <NewButton type="primary" htmlType='submit'>
                         Login
+
                     </NewButton>
 
                     <p>Login Instead</p>
@@ -249,6 +256,7 @@ const WaiterReg = (props) => {
     )
 }
 
+
 const validationSchema = Yup.object().shape({
     first_name: Yup.string()
     .required("Please provide your first name")
@@ -259,10 +267,12 @@ const validationSchema = Yup.object().shape({
     .min(2, "Name is too short"),
 
     email: Yup.string()
+
     .required('Please provide a email'),
 
     username: Yup.string()
     .email("Email is not valid")
+
     .required("Please provide an username"),
 
     password: Yup.string().required('Please enter a password')
