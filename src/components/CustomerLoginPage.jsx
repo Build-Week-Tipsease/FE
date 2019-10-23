@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { Button, Input, Icon, Typography, Form  } from 'antd';
 import {Route, Link } from 'react-router-dom';
 import CustomerReg from './Register/CustomerReg'
+import { baseUserApi } from '../state/actionCreators'
 
 const Container = styled.div`
 background-color: #0c1d09;
@@ -55,7 +56,7 @@ const initialLoginFeild = {
     password: '',
 }
 
-const LoginPage = (props) => {
+const CustomerLoginPage = (props) => {
     
     const {values, handleBlur, handleSubmit, touched, errors} = props
 
@@ -66,16 +67,17 @@ const LoginPage = (props) => {
     }
 
     const handleLogin = (e) => {
-        e.preventDefault();
-        const done = loginFeild
         debugger
-        axios.post('', loginFeild)
+        e.preventDefault();
+        axios.post(`${baseUserApi}/api/customers/login`, loginFeild)
             .then(res => {
+                console.log(res.token)
                 debugger
-                localStorage.setItem('token', res)
-                props.history.push('')
+                localStorage.setItem('token', res.data.token)
+                props.history.push('/home')
             })
             .catch(err => {
+                alert(err.message);
                 debugger
             })
             setLoginFeild(initialLoginFeild);
@@ -122,12 +124,11 @@ const LoginPage = (props) => {
                         Login
                     </NewButton>
 
-                    <p>Need To Register</p>
+                    <p>Need To Register?</p>
                     <Link to='/register'>
-                        <NewButton>Register</NewButton>
-
+                        <NewButton>Register here</NewButton>
                     </Link>
-                    {/* <Route exact path='/' render={props => <LoginPage {...props} />} /> */}
+                    {/* <Route exact path='/' render={props => <CustomerLoginPage {...props} />} /> */}
                     {/* <Route exact path='/new_user' render={props => <CustomerReg {...props}/> }/> */}
                 </form>
 
@@ -146,7 +147,7 @@ const validationSchema = Yup.object().shape({
     .min(8, 'Password too short')
 })
 
-const FormikLoginPage = withFormik({
+const FormikCustomerLoginPage = withFormik({
     mapPropsToValues: () => ({username: '', password:''}),
     handleSubmit:(values, {props, setSubmitting})=>{
         props.getLogi(values, props)
@@ -155,6 +156,6 @@ const FormikLoginPage = withFormik({
 
 validationSchema:validationSchema
 
-})(LoginPage)
+})(CustomerLoginPage)
 
-export default FormikLoginPage;
+export default FormikCustomerLoginPage;

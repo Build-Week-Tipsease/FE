@@ -70,7 +70,8 @@ const CustomerReg = (props) => {
 
     const handleCustomerReg = (e) => {
         e.preventDefault();
-        props.addNewUser(customerRegFeild);
+        props.addNewCustomer(customerRegFeild);
+        props.history.push('/customer_login');
     }
 
     return(
@@ -148,11 +149,11 @@ const CustomerReg = (props) => {
                     </div> */}
                    
                     <NewButton type="primary" htmlType='submit'>
-                        Login
+                        Sign Up
                     </NewButton>
 
-                    <p>Login Instead</p>
-                    <Link to='/'><NewButton>Login</NewButton>
+                    <p>Already have an account? Login Instead</p>
+                    <Link to='/'><NewButton>Login here</NewButton>
                     </Link>
                     
                 </form>

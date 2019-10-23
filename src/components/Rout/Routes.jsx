@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../Header';
-import LoginPage from '../LoginPage'
+import CustomerLoginPage from '../CustomerLoginPage'
+import WaiterLoginPage from '../WaiterLoginPage'
 import CustomerReg from '../Register/CustomerReg'
 import WaiterReg from '../Register/WaiterReg'
 import Register from '../Register/Register'
@@ -14,11 +15,11 @@ const Routes = () => {
 return(
     <div>
 <Route exact path='/home' render={() => <Redirect to='/' />} />
-<Route exact path='/' render={() => <Redirect to ='/welcome'/>} />
+<Route exact path='/' render={() => <Redirect to ='/register'/>} />
 
 <Header />
-<Route exact path='/welcome' component={LoginPage} />
-
+<Route exact path='/customer_login' component={CustomerLoginPage} />
+<Route exact path='/waiter_login' component={WaiterLoginPage} />
 
 <Route exact path='/register' component={Register} />
 <Route exact path='/dashboard' component={Dashboard} />

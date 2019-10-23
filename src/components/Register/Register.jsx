@@ -65,9 +65,12 @@ const Register = () => {
                     <NewButton>Waiter Register</NewButton>
                 </Link>
 
-                    <p>Login Instead</p>
-                    <Link to='/'>
-                      <NewButton>Login</NewButton>
+                    <p>Already have an account?</p>
+                    <Link to='/customer_login'>
+                      <NewButton>Login as Customer</NewButton>
+                      </Link>
+                      <Link to='/waiter_login'>
+                      <NewButton>Login as Waiter</NewButton>
                       </Link>
                 
             </Innerdiv>
