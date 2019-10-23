@@ -66,8 +66,11 @@ const Register = () => {
                 </Link>
 
                     <p>Already have an account?</p>
-                    <Link to='/'>
-                      <NewButton>Login</NewButton>
+                    <Link to='/customer_login'>
+                      <NewButton>Login as Customer</NewButton>
+                      </Link>
+                      <Link to='/waiter_login'>
+                      <NewButton>Login as Waiter</NewButton>
                       </Link>
                 
             </Innerdiv>

@@ -71,7 +71,7 @@ const CustomerReg = (props) => {
     const handleCustomerReg = (e) => {
         e.preventDefault();
         props.addNewCustomer(customerRegFeild);
-        props.history.push('/welcome');
+        props.history.push('/customer_login');
     }
 
     return(
@@ -84,6 +84,7 @@ const CustomerReg = (props) => {
                 <h1>New Customer Register</h1>
 
                 <form onSubmit={handleCustomerReg}>
+
                     <Form.Item help={touched.first_name && errors.first_name ? errors.first_name : ""}
                     validateStatus={touched.first_name && errors.first_name ? "error" : undefined}>
                         <Input 
@@ -195,6 +196,7 @@ const FormikCustomerReg = withFormik({
         }
     },
     validationSchema: validationSchema
+
 })(CustomerReg)
 export default connect(
     state => state,

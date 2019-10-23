@@ -56,7 +56,7 @@ const initialLoginFeild = {
     password: '',
 }
 
-const LoginPage = (props) => {
+const CustomerLoginPage = (props) => {
     
     const {values, handleBlur, handleSubmit, touched, errors} = props
 
@@ -67,12 +67,13 @@ const LoginPage = (props) => {
     }
 
     const handleLogin = (e) => {
+        debugger
         e.preventDefault();
         axios.post(`${baseUserApi}/api/customers/login`, loginFeild)
             .then(res => {
-                console.log(res)
+                console.log(res.token)
                 debugger
-                localStorage.setItem('token', res)
+                localStorage.setItem('token', res.data.token)
                 props.history.push('/home')
             })
             .catch(err => {
@@ -98,6 +99,7 @@ const LoginPage = (props) => {
                         type='text'
                         size='large' 
                         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+
                         placeholder='Username'
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -126,7 +128,7 @@ const LoginPage = (props) => {
                     <Link to='/register'>
                         <NewButton>Register here</NewButton>
                     </Link>
-                    {/* <Route exact path='/' render={props => <LoginPage {...props} />} /> */}
+                    {/* <Route exact path='/' render={props => <CustomerLoginPage {...props} />} /> */}
                     {/* <Route exact path='/new_user' render={props => <CustomerReg {...props}/> }/> */}
                 </form>
 
@@ -145,7 +147,7 @@ const validationSchema = Yup.object().shape({
     .min(8, 'Password too short')
 })
 
-const FormikLoginPage = withFormik({
+const FormikCustomerLoginPage = withFormik({
     mapPropsToValues: () => ({username: '', password:''}),
     handleSubmit:(values, {props, setSubmitting})=>{
         props.getLogi(values, props)
@@ -154,5 +156,6 @@ const FormikLoginPage = withFormik({
 
 validationSchema:validationSchema
 
-})(LoginPage)
-export default FormikLoginPage;
+})(CustomerLoginPage)
+
+export default FormikCustomerLoginPage;
