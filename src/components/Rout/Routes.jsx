@@ -8,7 +8,7 @@ import WaiterReg from '../Register/WaiterReg'
 import Register from '../Register/Register'
 import Footer from '../Footer'
 import Dashboard from '../dashboard/index'
-
+import ServiceWorker from '../dashboard/ServiceWorker'
 
 const Routes = () => {
 
@@ -26,6 +26,7 @@ return(
 
 <Route exact path='/register/new_user' render={props => <CustomerReg {...props}/> }/>
 <Route exact path='/register/waiter_reg' render={props => <WaiterReg {...props}/> }/>
+<Route path='/serviceworker/6' componenet={ServiceWorker} />
 
     <Footer />
     </div>

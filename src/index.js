@@ -12,6 +12,7 @@ import * as reducers from './state/reducers';
 
 const monsterReducer = combineReducers({
     customers: reducers.customerReducer,
+    waiters: reducers.waiterReducer,
 })
 
 const store = createStore(

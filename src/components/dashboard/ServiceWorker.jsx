@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import {connect} from 'react-redux';
 import axiosWithAuth from '../axios';
+import * as actionCreators from '../../state/actionCreators';
+
 
 const Cont = styled.div`
   background-color: #0c1d09;
@@ -49,18 +51,21 @@ const data = [
 ];
 const input=`https://tipsease-msm.herokuapp.com`
 const ServiceWorker=(props)=> {
-  const {values, handleBlur, touched, errors} = props  
+    debugger
+//   const {values, handleBlur, touched, errors} = props  
     
   const [service, setService] = useState([]);
   
   useEffect(() => {
-    axiosWithAuth().get(`${input}/api/serviceworker/`)
+    axiosWithAuth().get(`${input}/api/serviceworker/6`)
         .then(res => {
         console.log(`response`, res.data)
+        debugger
         setService(res.data);
     })
     .catch(error => {
         console.log(`no tips`, error)
+        debugger
         // will change to axios data
         
     })
@@ -86,8 +91,11 @@ const ServiceWorker=(props)=> {
     </Cont>
   );
 }
-export default ServiceWorker;
 
+export default connect(
+    state => state,
+    actionCreators,
+)(ServiceWorker);
 
 {/* <form onSubmit="submit">
               <Form.Item

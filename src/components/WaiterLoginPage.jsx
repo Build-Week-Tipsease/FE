@@ -74,7 +74,7 @@ const WaiterLoginPage = (props) => {
                 console.log(res.token)
                 debugger
                 localStorage.setItem('token', res.data.token)
-                props.history.push('/home')
+                props.history.push('/serviceworker/6')
             })
             .catch(err => {
                 alert(err.message);
