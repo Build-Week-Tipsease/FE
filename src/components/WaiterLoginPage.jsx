@@ -70,7 +70,6 @@ const WaiterLoginPage = (props) => {
         e.preventDefault();
         axios.post(`${baseUserApi}/api/serviceworker/login`, loginFeild)
             .then(res => {
-                console.log(res.token)
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('role', 'worker')
                 props.history.push('/dashboard')
