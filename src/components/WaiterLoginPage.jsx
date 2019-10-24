@@ -68,6 +68,7 @@ const WaiterLoginPage = (props) => {
 
     const handleLogin = (e) => {
         e.preventDefault();
+        console.log(loginFeild)
         axios.post(`${baseUserApi}/api/serviceworker/login`, loginFeild)
             .then(res => {
                 console.log(res)

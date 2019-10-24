@@ -67,6 +67,7 @@ const CustomerLoginPage = (props) => {
     }
 
     const handleLogin = (e) => {
+        console.log(loginFeild, `${baseUserApi}/api/customers/login`)
         e.preventDefault();
         axios.post(`${baseUserApi}/api/customers/login`, loginFeild)
             .then(res => {
@@ -76,7 +77,6 @@ const CustomerLoginPage = (props) => {
             })
             .catch(err => {
                 alert(err.message);
-               
             })
             setLoginFeild(initialLoginFeild);
     }

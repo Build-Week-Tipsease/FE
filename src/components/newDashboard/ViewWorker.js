@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import axios from 'axios';
 
 import axiosWithAuth from '../axios';
 
@@ -47,12 +48,24 @@ const data = [
       "https://www.cargocrew.com.au/media/catalog/product/cache/1/image/580x770/040ec09b1e35df139433887a97daa66f/c/a/cargocrew-uniform-apron-tom-bib-black-womens-5.jpg"
   }
 ];
-const input=`https://tipsease-msm.herokuapp.com`
+const apiBase=`https://tipsease-msm.herokuapp.com/api`
 
 
 const ViewWorker = () => {
   const worker=JSON.parse(localStorage.getItem('worker'))
   const tipRef=useRef();
+
+  const tipWorker = (worker) => {
+    console.log(tipRef.current.value)
+    axios.put(`${apiBase}/serviceworker/${worker.id}/tip`,{
+        username: worker.username,
+        company: worker.company,
+        balance: tipRef.current.value
+      }).then(res => {
+      alert(res.data.message)
+    })
+  }
+
   return (
     <Cont>
       <Card key={worker.id}>
@@ -61,7 +74,7 @@ const ViewWorker = () => {
         <p>Job~ {worker.company}</p>
         <p>Years~ {worker.YearsAtCompany}</p>
         <p>Tagline~ {worker.tagline}</p>
-        <button style={{ width: '40%', float: 'right' }} className='tip-button'>
+        <button style={{ width: '40%', float: 'right' }} className='tip-button' onClick={() => tipWorker(worker)}>
           Add Tip
         </button>
         <input style={{ width: '40%' }} placeholder='Amount in $'  ref={tipRef} className='tip-box' ></input>
