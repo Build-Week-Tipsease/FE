@@ -74,6 +74,7 @@ const WaiterLoginPage = (props) => {
                 console.log(res)
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('role', 'worker')
+                localStorage.setItem('id', res.data.person.id)
                 props.history.push('/dashboard')
             })
             .catch(err => {

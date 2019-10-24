@@ -83,6 +83,7 @@
 
 .card-text {
   color: white;
+  cursor: pointer;
 }
 
 .tip-button, .search-button {

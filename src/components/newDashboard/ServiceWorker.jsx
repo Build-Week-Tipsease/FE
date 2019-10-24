@@ -52,12 +52,14 @@ const ServiceWorker=(props)=> {
   const {values, handleBlur, touched, errors} = props  
     
   const [service, setService] = useState(data);
+  const id = localStorage.getItem('id')
   
   useEffect(() => {
-    axiosWithAuth().get(`${input}/api/serviceworker/`)
+    axiosWithAuth().get(`${input}/api/serviceworker/${id}`)
         .then(res => {
         console.log(`response`, res.data)
-        //setService(res.data);
+        if(id)setService([res.data]);
+        console.log(service)
     })
     .catch(error => {
         console.log(`no tips`, error)
@@ -72,10 +74,10 @@ const ServiceWorker=(props)=> {
       {service.map((i, index) => {
         return (
           <Card key={index}>
-            <h3>{i.name}</h3>
-            <Image src={i.image} />
-            <p>Job~ {i.job}</p>
-            <p>Years~ {i.years}</p>
+            <h3>{i.FirstName} {i.LastName}</h3>
+            <Image src={data[0].image} />
+            <p>Job~ {i.company}</p>
+            <p>Years~ {i.YearsAtCompany}</p>
             <p>Tagline~ {i.tagline}</p>
             <p>Tips~ ${i.balance}</p>
 
