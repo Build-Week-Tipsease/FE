@@ -57,7 +57,7 @@ const ServiceWorker=(props)=> {
     axiosWithAuth().get(`${input}/api/serviceworker/`)
         .then(res => {
         console.log(`response`, res.data)
-        setService(res.data);
+        //setService(res.data);
     })
     .catch(error => {
         console.log(`no tips`, error)

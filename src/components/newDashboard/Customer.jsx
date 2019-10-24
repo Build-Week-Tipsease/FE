@@ -43,6 +43,7 @@ const Customer = (props) => {
   }
 
   const tip = (worker) => {
+    if(tipping)tipWorker(worker)
     setTip(!tipping);
     if(searchResults.length <= 0)setSearchResult(searchResults.concat(worker));
   }
@@ -85,7 +86,7 @@ const Customer = (props) => {
               <h3 className='card-text'>Company: {worker.company}</h3>
               <h3 className='card-text'>Years at Company: {worker.YearsAtCompany}</h3>
               {tipping && (<input placeholder='Amount in $'  ref={tipRef} className='tip-box' ></input>)}
-              <button className='tip-button' onClick={() => tip(worker)}>
+              <button className='tip-button' onClick={() => props.viewWork(worker)}>
                 Tip
               </button>
             </div>
@@ -98,12 +99,12 @@ const Customer = (props) => {
           <div className='worker-card'>
             <img src={icon}  className='ph-image' alt='ph'/>
             <div className='other-info'>
-              <h2 className='card-text'>Name: {worker.FirstName} {worker.LastName}</h2>
+              <h2 className='card-text' onClick={() => props.viewWork(worker)}>Name: {worker.FirstName} {worker.LastName}</h2>
               <h3 className='catch-phrase'>Tagline: {worker.tagline}</h3>
               <h3 className='card-text'>Company: {worker.company}</h3>
               <h3 className='card-text'>Years at Company: {worker.YearsAtCompany}</h3>
               {tipping && (<input placeholder='Amount in $'  ref={tipRef} className='tip-box' ></input>)}
-              <button className='tip-button' onClick={() => tipWorker(worker)}>
+              <button className='tip-button' onClick={() => props.viewWork(worker)}>
                 Tip
               </button>
             </div>
