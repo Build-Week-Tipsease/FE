@@ -33,6 +33,7 @@ useEffect(() => {
         <Head className='header'>
             <Link to='/'><Image01 src='/images/tipsease logo.png' /></Link>
             
+            <Link to='/'>Home</Link>
             <div>
             
             {token && <Link to='/'>
