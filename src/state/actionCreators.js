@@ -21,16 +21,16 @@ export const addNewCustomer = (customerRegFeild) => dispatch => {
 }
 
 export const addNewWaiter = (waiterRegFeild) => dispatch => {
-    debugger
+    
     withAuth().post(`${baseUserApi}/api/serviceworker/signup`, waiterRegFeild)
         .then(res => {
             console.log(res)
-            debugger
+          
             dispatch({ type: types.ADD_NEW_USER, payload: res.data})
         })
         .catch(err => {
             console.log(err)
-            debugger
+       
             dispatch({ type: types.ERROR_SIGNING_UP, payload: err.message })
         })
 }

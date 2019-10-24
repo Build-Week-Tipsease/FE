@@ -5,7 +5,7 @@ import { Formik, Form, Field } from 'formik';
 import { users } from '../static/static';
 import icon from '../../components/images/tipsease icon.png';
 
-const apiBase = `https://tipsease-msm.herokuapp.com`;
+const apiBase = `https://tipsease-msm.herokuapp.com/api`;
 const token = localStorage.getItem('token');
 
 
@@ -16,6 +16,17 @@ const Customer = (props) => {
   const [ tipping, setTip ] = useState(false);
   const username = useRef();
   const tipRef = useRef();
+
+  const tipWorker = (worker) => {
+    console.log(tipRef.current.value)
+    axios.put(`${apiBase}/serviceworker/${worker.id}/tip`,{
+        username: worker.username,
+        company: worker.company,
+        balance: tipRef.current.value
+      }).then(res => {
+      alert(res.data.message)
+    })
+  }
 
   const submit = (e) => {
     e.preventDefault();
@@ -38,7 +49,7 @@ const Customer = (props) => {
 
   const getWorkers = () => {
     console.log(token);
-    axiosWithAuth().get(`${apiBase}/api/serviceworker`, 
+    axiosWithAuth().get(`${apiBase}/serviceworker`, 
     {
       "Authorization": token,
     })
@@ -92,7 +103,7 @@ const Customer = (props) => {
               <h3 className='card-text'>Company: {worker.company}</h3>
               <h3 className='card-text'>Years at Company: {worker.YearsAtCompany}</h3>
               {tipping && (<input placeholder='Amount in $'  ref={tipRef} className='tip-box' ></input>)}
-              <button className='tip-button' onClick={() => tip(worker)}>
+              <button className='tip-button' onClick={() => tipWorker(worker)}>
                 Tip
               </button>
             </div>
