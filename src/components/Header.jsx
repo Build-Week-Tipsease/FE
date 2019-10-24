@@ -24,7 +24,6 @@ const logOut = () => {
   localStorage.clear();
   //this.props.history.replace('/');
 }
-
 useEffect(() => {
   const localToken = localStorage.getItem('token');
   setToken(localToken);
@@ -32,21 +31,16 @@ useEffect(() => {
 
     return (
         <Head className='header'>
-            <Image01 src='/images/tipsease logo.png' />
+            <Link to='/'><Image01 src='/images/tipsease logo.png' /></Link>
             
-            {token &&
-            (<Link to='/dashboard'>
-              Dashboard
-            </Link>)
-            }
-
             <div>
             
-            
-
-            <Link to='/'>
-            <Button className='logout' onClick={logOut}>~logout~</Button>
-            </Link>
+            {token && <Link to='/'>
+            <Button className='logout' onClick={() => {
+              logOut()
+              setToken(null)
+              }}>~logout~</Button>
+            </Link> }
             </div>
         </Head>
 

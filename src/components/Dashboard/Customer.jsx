@@ -9,7 +9,7 @@ const apiBase = `https://tipsease-msm.herokuapp.com`;
 const token = localStorage.getItem('token');
 
 
-const Customer = () => {
+const Customer = (props) => {
   const [ workers, setWorkers ] = useState(users);
   const [ searchResults, setSearchResult] = useState([]);
   const [ searched, alterSearch] = useState(false);
@@ -38,7 +38,7 @@ const Customer = () => {
 
   const getWorkers = () => {
     console.log(token);
-    axios.get(`${apiBase}/api/customers`, 
+    axiosWithAuth().get(`${apiBase}/api/customers`, 
     {
       "Authorization": token,
     })
@@ -69,7 +69,7 @@ const Customer = () => {
           <div className='worker-card'>
             <img src={icon} className='ph-image' alt='ph'/>
             <div className='other-info'>
-              <h2 className='card-text'>Name: {worker.FirstName} {worker.LastName}</h2>
+              <h2 className='card-text' onClick={() => props.viewWork(worker)}>Name: {worker.FirstName} {worker.LastName}</h2>
               <h3 className='catch-phrase'>Tagline: {worker.tagline}</h3>
               <h3 className='card-text'>Company: {worker.company}</h3>
               <h3 className='card-text'>Years at Company: {worker.YearsAtCompany}</h3>

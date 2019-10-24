@@ -2,12 +2,18 @@ import React from 'react'
 import CustomerDashboard from './Customer';
 import WorkerDashboard from './ServiceWorker';
 
-function Dashboard () {
+function Dashboard (props) {
   const role=localStorage.getItem('role');
-  console.log(role)
+  console.log(props);
+
+  const viewWorker = (worker) => {
+    localStorage.setItem('worker', JSON.stringify(worker))
+    props.history.push('/tipworker')
+  }
+
   return(
     <div>
-      {role==='customer' && <CustomerDashboard />}
+      {role==='customer' && <CustomerDashboard viewWork={viewWorker} />}
       {role==='worker' && <WorkerDashboard />}
     </div>
   );
