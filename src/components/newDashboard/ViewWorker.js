@@ -57,13 +57,18 @@ const ViewWorker = () => {
 
   const tipWorker = (worker) => {
     console.log(tipRef.current.value)
-    axios.put(`${apiBase}/serviceworker/${worker.id}/tip`,{
-        username: worker.username,
-        company: worker.company,
-        balance: tipRef.current.value
-      }).then(res => {
-      alert(res.data.message)
-    })
+    axios.get(`${apiBase}/serviceworker/${worker.id}`)
+      .then(res => {
+        //console.log(res)
+        const amount  = parseInt(res.data.balance) + parseInt(tipRef.current.value);
+          axios.put(`${apiBase}/serviceworker/${worker.id}/tip`,{
+            username: worker.username,
+            company: worker.company,
+            balance: amount,
+          }).then(res2 => {
+          alert(res2.data.message)
+        }).catch(err => console.log(err))
+      }).catch(err => console.log(err))
   }
 
   return (

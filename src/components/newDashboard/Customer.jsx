@@ -19,13 +19,17 @@ const Customer = (props) => {
 
   const tipWorker = (worker) => {
     console.log(tipRef.current.value)
-    axios.put(`${apiBase}/serviceworker/${worker.id}/tip`,{
-        username: worker.username,
-        company: worker.company,
-        balance: tipRef.current.value
-      }).then(res => {
-      alert(res.data.message)
-    })
+    axios.get(`${apiBase}/serviceworker/${worker.id}`)
+      .then(res => {
+        console.log(res)
+          axios.put(`${apiBase}/serviceworker/${worker.id}/tip`,{
+            username: worker.username,
+            company: worker.company,
+            balance: res.data.person.balance + tipRef.current.value
+          }).then(res2 => {
+          alert(res2.data.message)
+        }).catch(err => console.log(err))
+      }).catch(err => console.log(err))
   }
 
   const submit = (e) => {
