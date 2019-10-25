@@ -38,11 +38,11 @@ const NewButton = styled.button`
 
 const data = [
   {
-    name: "Jane Doe",
+    name: "",
     job: "Waiter",
     years: 5,
     balance: 3000,
-    tagline: "fast service",
+    tagline: "",
     image:
       "https://www.cargocrew.com.au/media/catalog/product/cache/1/image/580x770/040ec09b1e35df139433887a97daa66f/c/a/cargocrew-uniform-apron-tom-bib-black-womens-5.jpg"
   }

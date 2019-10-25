@@ -66,7 +66,7 @@ const ViewWorker = () => {
             company: worker.company,
             balance: amount,
           }).then(res2 => {
-          alert(res2.data.message)
+          alert(`you have given an amazing tip of $${tipRef.current.value} to ${worker.username}`)
         }).catch(err => console.log(err))
       }).catch(err => console.log(err))
   }
